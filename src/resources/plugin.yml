@@ -1,0 +1,4 @@
+name: Element UHC
+version: 1.0
+main: com.elementuhc.Main
+api-version: 1.8
