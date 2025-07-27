@@ -4,12 +4,44 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Mdjselect {
+public class Mdjselect implements Listener {
 
+    private final Main plugin;
+
+    public Mdjselect(Main plugin) {
+        this.plugin = plugin;
+    }
+
+
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event){
+        if (event.getView().getTitle().equalsIgnoreCase(ChatColor.YELLOW + "Choisissez le mode de jeu")){
+            event.setCancelled(true);
+            Player player = (Player) event.getWhoClicked();
+            ItemStack clickeditem = event.getCurrentItem();
+
+            if (clickeditem != null || clickeditem.getType() == Material.AIR) return;
+
+            if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC FFA")) {
+                player.closeInventory();
+                Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC FFA");
+            }
+            if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC To2")) {
+
+            }
+            if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC Stratégique")) {
+
+            }
+        }
+    }
 
 
 
