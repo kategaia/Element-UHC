@@ -6,8 +6,13 @@ import com.elementuhc.mode.To2;
 import com.elementuhc.mode.Strategique;
 
 public class Main extends JavaPlugin{
+
+    private RoleManager roleManager;
+
     @Override
     public void onEnable(){
+
+        roleManager = new RoleManager();
 
         getServer().getPluginManager().registerEvents(new Mdjselect(this), this);
 
@@ -16,12 +21,12 @@ public class Main extends JavaPlugin{
 
     @Override
     public void onDisable(){
-        getLogger().info("Plugin Element UHC Activé !");
+        getLogger().info("Plugin Element UHC Désactivé !");
     }
 
 
     public void loadFFA() {
-        getServer().getPluginManager().registerEvents(new FFA(), this);
+        getServer().getPluginManager().registerEvents(new FFA(roleManager), this);
         getLogger().info("Mode FFA chargé !");
     }
 
@@ -33,6 +38,10 @@ public class Main extends JavaPlugin{
     public void loadStrategique() {
         getServer().getPluginManager().registerEvents(new Strategique(), this);
         getLogger().info("Mode Stratégique chargé !");
+    }
+
+    public RoleManager getRoleManager(){
+        return roleManager;
     }
 
 
