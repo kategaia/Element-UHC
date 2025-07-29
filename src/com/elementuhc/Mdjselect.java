@@ -1,5 +1,7 @@
 package com.elementuhc;
 
+import com.elementuhc.mode.FFA;
+import com.elementuhc.mode.Strategique;
 import com.elementuhc.mode.To2;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,16 +35,18 @@ public class Mdjselect implements Listener {
 
             if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC FFA")) {
                 player.closeInventory();
+                plugin.getServer().getPluginManager().registerEvents(new FFA(plugin.getRoleManager()), plugin);
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC FFA");
             }
             if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC To2")) {
                 player.closeInventory();
-                plugin.getServer().getPluginManager().registerEvents(new To2(), plugin);
+                plugin.getServer().getPluginManager().registerEvents(new To2(plugin.getRoleManager()), plugin);
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC To2");
 
             }
             if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC Stratégique")) {
                 player.closeInventory();
+                plugin.getServer().getPluginManager().registerEvents(new Strategique(plugin.getRoleManager()), plugin);
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC Stratégique");
             }
         }

@@ -31,12 +31,12 @@ public class Main extends JavaPlugin{
     }
 
     public void loadTo2() {
-        getServer().getPluginManager().registerEvents(new To2(), this);
+        getServer().getPluginManager().registerEvents(new To2(roleManager), this);
         getLogger().info("Mode To2 chargé !");
     }
 
     public void loadStrategique() {
-        getServer().getPluginManager().registerEvents(new Strategique(), this);
+        getServer().getPluginManager().registerEvents(new Strategique(roleManager), this);
         getLogger().info("Mode Stratégique chargé !");
     }
 
