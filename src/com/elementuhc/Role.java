@@ -12,10 +12,6 @@ public class Role {
         return type.getName();
     }
 
-    public String getDescription() {
-        return type.getDescription();
-    }
-
     public RoleType getType() {
         return type;
     }

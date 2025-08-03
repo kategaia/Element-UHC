@@ -1,17 +1,40 @@
 package com.elementuhc;
 
 public enum RoleType {
-    Hydrogene("Hydrogène", "premier élément du tableau périodique"); // - implementer les rôles comme ça
+    Hydrogene("Hydrogène"), // - implementer les rôles comme ça
+    Helium("Hélium"),
+    Azote("Azote"),
+    Oxygene("Oxygène"),
+    Fluor("Fluor"),
+    Neon("Néon"),
+    Chlore("Chlore"),
+    Argon("Argon"),
+    Krypton("Krypton"),
+    Xenon("Xénon"),
+    Radon("Radon"),
+    Carbone("Carbone"),
+    Phosphore("Phosphore"),
+    Soufre("Soufre"),
+    Selenium("Sélénium"),
+    Iode("Idoe"),
+    Brome("Brome"),
+    Astate("Astate"),
+    Bore("Bore"),
+    Silicium("Silicium"),
+    Germanium("Germanium"),
+    Arsenic("Arsenic"),
+    Antimoine("Anitmoine"),
+    Tellure("Tellure"),
+    Polonium("Polonium"),
+    Oganesson("Oganesson");
+
 
     private final String name;
-    private final String description;
 
-    RoleType(String name, String description) {
+    RoleType(String name) {
         this.name = name;
-        this.description = description;
     }
 
     public String getName() {return name;}
 
-    public String getDescription() {return description;}
 }
