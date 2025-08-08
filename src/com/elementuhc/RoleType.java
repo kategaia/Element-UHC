@@ -27,6 +27,7 @@ public enum RoleType {
     Tellure("Tellure"),
     Polonium("Polonium"),
     Oganesson("Oganesson"),
+    // rôle a Speed ^
     Lithium("Lithium"),
     Beryllium("Béryllium"),
     Sodium("Sodium"),
@@ -54,6 +55,7 @@ public enum RoleType {
     Etain("Étain"),
     Thallium("Thallium"),
     Baryum("Baryum"),
+    // rôle a Résistance ^
     Fer("Fer"),
     Cobalt("Cobalt"),
     Nickel("Nickel"),
@@ -84,6 +86,7 @@ public enum RoleType {
     Moscovium("Moscovium"),
     Livermorium("Livermorium"),
     Tennesse("Tennesse"),
+    // rôle a effet force
     Lanthane("Lanthane"),
     Cerium("Cérium"),
     Praseodyme("Praséodyme"),
@@ -117,6 +120,7 @@ public enum RoleType {
     Radium("Radium"),
     Actinium("Actinium"),
     Technetium("Technétium");
+    //rôle avec 1 coeur en +
 
     private final String name;
 
