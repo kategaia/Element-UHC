@@ -1,5 +1,6 @@
 package com.elementuhc.mode;
 
+import com.elementuhc.Role;
 import com.elementuhc.RoleEffectModifier;
 import com.elementuhc.RoleManager;
 import com.elementuhc.RoleType;
@@ -11,7 +12,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.management.relation.Role;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -90,15 +90,100 @@ public class FFA implements Listener, RoleEffectModifier {
      RoleType.Baryum
     );
 
+    private static final Set<RoleType> STRENGTH_ROLES = EnumSet.of(
+     RoleType.Fer,
+     RoleType.Cobalt,
+     RoleType.Nickel,
+     RoleType.Cuivre,
+     RoleType.Argent,
+     RoleType.Or,
+     RoleType.Mercure,
+     RoleType.Plomb,
+     RoleType.Bismuth,
+     RoleType.Tungstene,
+     RoleType.Platine,
+     RoleType.Iridium,
+     RoleType.Osmium,
+     RoleType.Rhenium,
+     RoleType.Tantale,
+     RoleType.Hafnium,
+     RoleType.Rutherfordium,
+     RoleType.Dubnium,
+     RoleType.Seaborgium,
+     RoleType.Bohrium,
+     RoleType.Hassium,
+     RoleType.Meitnerium,
+     RoleType.Darmstadtium,
+     RoleType.Roentgenium,
+     RoleType.Copernicium,
+     RoleType.Nihonium,
+     RoleType.Flerovium,
+     RoleType.Moscovium,
+     RoleType.Livermorium,
+     RoleType.Tennesse
+    );
+
+    private static final Set<RoleType> HEALTHBOOST_ROLES = EnumSet.of(
+      RoleType.Lanthane,
+      RoleType.Cerium,
+      RoleType.Praseodyme,
+      RoleType.Neodyme,
+      RoleType.Promethium,
+      RoleType.Samarium,
+      RoleType.Europium,
+      RoleType.Gadolinium,
+      RoleType.Terbium,
+      RoleType.Dysprosium,
+      RoleType.Holmium,
+      RoleType.Erbium,
+      RoleType.Thulium,
+      RoleType.Ytterbium,
+      RoleType.Lutecium,
+      RoleType.Thorium,
+      RoleType.Protactinium,
+      RoleType.Uranium,
+      RoleType.Neptunium,
+      RoleType.Plutonium,
+      RoleType.Americium,
+      RoleType.Curium,
+      RoleType.Berkelium,
+      RoleType.Californium,
+      RoleType.Einsteinium,
+      RoleType.Fermium,
+      RoleType.Mendelevium,
+      RoleType.Nobelium,
+      RoleType.Lawrencium,
+      RoleType.Francium,
+      RoleType.Radium,
+      RoleType.Actinium,
+      RoleType.Technetium
+      );
+
     @Override
-    public void applyEffects(Player player, RoleType type) {
+    public void applyEffects(Player player, RoleType role ) {
 
-
-
-        switch (type) {
-
+        if(SPEED_ROLES.contains(role)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+        }
+        if(RESI_ROLES.contains(role)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
+        }
+        if(STRENGTH_ROLES.contains(role)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
+        }
+        if(HEALTHBOOST_ROLES.contains(role)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 0));
         }
 
+    }
+
+    public void StartGame() {
+        roleManager.prepareRoles();
+        for (Player player : org.bukkit.Bukkit.getOnlinePlayers()) {
+            roleManager.assignNextRole(player);
+            Role role = roleManager.getRole(player);
+            applyEffects(player, role.getType());
+        }
     }
 
     // Ici tu mets tout le code spécifique au mode FFA
