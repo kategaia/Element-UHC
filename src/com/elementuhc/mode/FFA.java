@@ -1,19 +1,15 @@
 package com.elementuhc.mode;
 
-import com.elementuhc.Role;
-import com.elementuhc.RoleEffectModifier;
-import com.elementuhc.RoleManager;
-import com.elementuhc.RoleType;
+import com.elementuhc.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.elementuhc.RoleType.Azote;
 
@@ -21,8 +17,13 @@ public class FFA implements Listener, RoleEffectModifier {
 
     private final RoleManager roleManager;
 
-    public FFA(RoleManager roleManager) {
+    private final Map<UUID, Integer> killerKillCount = new HashMap<>();
+
+    private final KillRewardManager killRewardManager;
+
+    public FFA(RoleManager roleManager, KillRewardManager killRewardManager) {
         this.roleManager = roleManager;
+        this.killRewardManager = killRewardManager;
     }
 
     @EventHandler
@@ -159,6 +160,23 @@ public class FFA implements Listener, RoleEffectModifier {
       RoleType.Technetium
       );
 
+
+    public static Set<RoleType> getSpeedRoles() {
+        return SPEED_ROLES;
+    }
+
+    public static Set<RoleType> getResiRoles() {
+        return RESI_ROLES;
+    }
+
+    public static Set<RoleType> getStrengthRoles() {
+        return STRENGTH_ROLES;
+    }
+
+    public static Set<RoleType> getHealthboostRoles() {
+        return HEALTHBOOST_ROLES;
+    }
+
     @Override
     public void applyEffects(Player player, RoleType role ) {
 
@@ -185,6 +203,21 @@ public class FFA implements Listener, RoleEffectModifier {
             applyEffects(player, role.getType());
         }
     }
+
+    @EventHandler
+    public void OnPlayerKill(PlayerDeathEvent event) {
+        Player killed = event.getEntity();
+        Player killer = killed.getKiller();
+
+        if (killer == null) return;
+
+        int kills = killerKillCount.getOrDefault(killer.getUniqueId(),0) +1;
+        killerKillCount.put(killer.getUniqueId(), kills);
+
+        killRewardManager.handlekill(killer, killed, kills);
+    }
+
+
 
     // Ici tu mets tout le code spécifique au mode FFA
 }

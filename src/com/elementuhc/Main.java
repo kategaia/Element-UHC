@@ -9,10 +9,14 @@ public class Main extends JavaPlugin{
 
     private RoleManager roleManager;
 
+    private KillRewardManager killRewardManager;
+
     @Override
     public void onEnable(){
 
         roleManager = new RoleManager();
+
+        killRewardManager = new KillRewardManager(roleManager);
 
         getServer().getPluginManager().registerEvents(new Mdjselect(this), this);
 
@@ -26,7 +30,7 @@ public class Main extends JavaPlugin{
 
 
     public void loadFFA() {
-        getServer().getPluginManager().registerEvents(new FFA(roleManager), this);
+        getServer().getPluginManager().registerEvents(new FFA(roleManager, killRewardManager), this);
         getLogger().info("Mode FFA chargé !");
     }
 
