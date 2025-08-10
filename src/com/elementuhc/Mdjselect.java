@@ -6,6 +6,8 @@ import com.elementuhc.mode.To2;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,19 +36,22 @@ public class Mdjselect implements Listener {
             if (clickeditem != null || clickeditem.getType() == Material.AIR) return;
 
             if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC FFA")) {
+                plugin.setCurrentMode(Main.GameModeType.FFA);
                 player.closeInventory();
-                plugin.getServer().getPluginManager().registerEvents(new FFA(plugin.getRoleManager()), plugin);
+                plugin.loadFFA();
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC FFA");
             }
             if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC To2")) {
+                plugin.setCurrentMode(Main.GameModeType.TO2);
                 player.closeInventory();
-                plugin.getServer().getPluginManager().registerEvents(new To2(plugin.getRoleManager()), plugin);
+                plugin.loadTo2();
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC To2");
 
             }
             if (clickeditem.getItemMeta().getDisplayName().equals("Element UHC Stratégique")) {
+                plugin.setCurrentMode(Main.GameModeType.STRATEGIQUE);
                 player.closeInventory();
-                plugin.getServer().getPluginManager().registerEvents(new Strategique(plugin.getRoleManager()), plugin);
+                plugin.loadStrategique();
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Mode de jeu sélectionner : Element UHC Stratégique");
             }
         }
@@ -55,7 +60,7 @@ public class Mdjselect implements Listener {
 
 
 
-    private void openPlayerInventory(Player player) {
+    public void openPlayerInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.YELLOW + "Choisissez le mode de jeu");
         ItemStack ffa = new ItemStack(Material.DIAMOND_SWORD,1);
         ItemMeta ffameta = ffa.getItemMeta();

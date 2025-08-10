@@ -219,5 +219,7 @@ public class FFA implements Listener, RoleEffectModifier {
 
 
 
+
+
     // Ici tu mets tout le code spécifique au mode FFA
 }

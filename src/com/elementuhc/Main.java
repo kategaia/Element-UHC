@@ -18,7 +18,12 @@ public class Main extends JavaPlugin{
 
         killRewardManager = new KillRewardManager(roleManager);
 
+        Mdjselect mdjselect = new Mdjselect(this);
+
         getServer().getPluginManager().registerEvents(new Mdjselect(this), this);
+
+        getCommand("start").setExecutor(new CmdStart(this));
+        getCommand("mdj").setExecutor(new CmdMdj(mdjselect));
 
         getLogger().info("Plugin Element UHC Activé !");
     }
@@ -46,6 +51,23 @@ public class Main extends JavaPlugin{
 
     public RoleManager getRoleManager(){
         return roleManager;
+    }
+
+    public enum GameModeType{
+        NONE,
+        FFA,
+        TO2,
+        STRATEGIQUE
+    }
+
+    private GameModeType currentMode = GameModeType.NONE;
+
+    public void setCurrentMode(GameModeType mode) {
+        this.currentMode = mode;
+    }
+
+    public GameModeType getCurrentMode() {
+        return  this.currentMode;
     }
 
 
