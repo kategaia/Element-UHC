@@ -1,5 +1,8 @@
 package com.elementuhc;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.elementuhc.mode.FFA;
 import com.elementuhc.mode.To2;
@@ -10,6 +13,8 @@ public class Main extends JavaPlugin{
     private RoleManager roleManager;
 
     private KillRewardManager killRewardManager;
+
+    private UHCScoreboard uhcScoreboard;
 
     @Override
     public void onEnable(){
@@ -26,6 +31,14 @@ public class Main extends JavaPlugin{
         getCommand("mdj").setExecutor(new CmdMdj(mdjselect));
 
         getLogger().info("Plugin Element UHC Activé !");
+
+        uhcScoreboard = new UHCScoreboard(this);
+        getServer().getPluginManager().registerEvents(new Listener() {
+            @EventHandler
+            public void onJoin(PlayerJoinEvent event){
+                uhcScoreboard.setPlayerScoreboard(event.getPlayer());
+            }
+        }, this);
     }
 
     @Override
@@ -69,7 +82,6 @@ public class Main extends JavaPlugin{
     public GameModeType getCurrentMode() {
         return  this.currentMode;
     }
-
 
 
 
