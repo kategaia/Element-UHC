@@ -53,7 +53,7 @@ public class Main extends JavaPlugin{
     }
 
     public void loadTo2() {
-        getServer().getPluginManager().registerEvents(new To2(roleManager), this);
+        getServer().getPluginManager().registerEvents(new To2(roleManager, killRewardManager), this);
         getLogger().info("Mode To2 chargé !");
     }
 
